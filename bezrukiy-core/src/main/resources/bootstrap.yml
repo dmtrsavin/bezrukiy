@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: bezrukiy-core
+  profiles:
+    active:
+      - dev
+  cloud:
+    config:
+        uri: http://localhost:7777
+server:
+  port: 8000
