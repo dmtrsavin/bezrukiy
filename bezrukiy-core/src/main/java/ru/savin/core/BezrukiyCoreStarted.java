@@ -3,6 +3,9 @@ package ru.savin.core;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Запуск приложения "Безрукий".
+ */
 @SpringBootApplication
 public class BezrukiyCoreStarted {
     public static void main(String[] args) {

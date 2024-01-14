@@ -44,5 +44,30 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.savin</groupId>
+            <artifactId>bezrukiy-shared-entity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.savin</groupId>
+            <artifactId>bezrukiy-shared-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.savin</groupId>
+            <artifactId>bezrukiy-shared-exception</artifactId>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
