@@ -5,9 +5,8 @@ import java.time.OffsetDateTime;
 /**
  * ДТО для категорий.
  *
- * @param name - название.
- * @param createDttm - дата создания.
- * @param endDttm - дата окончания.
+ * @param name название.
+ * @param createDttm дата создания.
  */
-public record CategoryDTO(String name, OffsetDateTime createDttm, OffsetDateTime endDttm) {
+public record CategoryDTO(String name, OffsetDateTime createDttm) {
 }

@@ -5,11 +5,11 @@ import java.time.OffsetDateTime;
 /**
  * ДТО для публикаций.
  *
- * @param name - Название.
- * @param createDttm - Дата создания.
- * @param endDttm - Дата окончания.
- * @param nameCategory - Название категории.
- * @param nameUser - Имя пользователя.
+ * @param name название.
+ * @param createDttm дата создания.
+ * @param endDttm дата окончания.
+ * @param nameCategory название категории.
+ * @param nameUser имя пользователя.
  */
 public record PublicationDTO(String name, OffsetDateTime createDttm,
                             OffsetDateTime endDttm, String nameCategory,

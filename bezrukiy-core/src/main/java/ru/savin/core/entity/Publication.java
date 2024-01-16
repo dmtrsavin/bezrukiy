@@ -8,6 +8,7 @@ import ru.savin.bezrukiy.shared.entity.GeneralEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -22,9 +23,11 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Publication extends GeneralEntity {
 
+    @JoinColumn(name = "category_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 }

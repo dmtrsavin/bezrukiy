@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>bezrukiy-config-server</artifactId>
-    <name>config-server</name>
+    <name>bezrukiy-config-server</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
