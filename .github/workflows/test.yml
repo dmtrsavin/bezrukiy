@@ -1,0 +1,21 @@
+name: moduling-test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set JDK 17 for 64x
+        uses: actions/setup-java@v3
+        with: 
+          java-version: '17'
+          distribution: 'liberica'
+          architecture: x64
+      - name: Run the Maven test phase
+        run: mvn test
