@@ -13,6 +13,7 @@
         <module>bezrukiy-config-server</module>
         <module>bezrukiy-migration</module>
         <module>bezrukiy-core</module>
+        <module>bezrukiy-files</module>
     </modules>
 
     <properties>

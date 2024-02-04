@@ -1,6 +1,13 @@
 spring:
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bezrukiy
+    url: jdbc:postgresql://localhost:5432/bezrukiy?currentSchema=dev
     username: dev
     password: dev
+

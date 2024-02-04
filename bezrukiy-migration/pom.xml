@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>bezrukiy-migration</artifactId>
-    <name>migration</name>
+    <name>bezrukiy-migration</name>
 
     <dependencies>
         <dependency>
