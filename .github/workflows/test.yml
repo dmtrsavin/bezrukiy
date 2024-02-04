@@ -5,8 +5,10 @@ on:
     branches:
       - main
 
-jobs: 
+jobs:   
   build:
+    runs-on: -ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
       - name: Set JDK 17 for 64x
