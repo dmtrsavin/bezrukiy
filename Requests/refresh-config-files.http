@@ -1,0 +1,8 @@
+# curl -H "Content-Type: application/json" -d {} http://localhost:8003/actuator/refresh
+POST http://localhost:8003/actuator/refresh
+Content-Type: application/json
+
+{}
+
+###
+

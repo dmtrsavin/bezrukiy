@@ -14,6 +14,7 @@
         <module>bezrukiy-migration</module>
         <module>bezrukiy-core</module>
         <module>bezrukiy-files</module>
+        <module>bezrukiy-eureka-server</module>
     </modules>
 
     <properties>
