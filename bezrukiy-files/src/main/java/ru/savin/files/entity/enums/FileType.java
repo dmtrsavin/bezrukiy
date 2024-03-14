@@ -9,9 +9,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum FileType {
-    LOGO("logo", ".png"),
-    IMAGE("image", ".jpg"),
-    TEXT("text", ".txt");
+    LOGO("logo", "png"),
+    IMAGE("image", "jpg"),
+    TEXT("text", "txt");
 
     private final String type;
     private final String extension;

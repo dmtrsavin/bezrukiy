@@ -4,17 +4,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.savin.bezrukiy.shared.exception.BezrukiyRuntimeException;
 import ru.savin.bezrukiy.shared.service.CrudService;
+import ru.savin.bezrukiy.shared.service.CrudServiceMultiple;
 import ru.savin.files.dto.FileStorageDTO;
+import ru.savin.files.dto.FileStorageInfoDTO;
 import ru.savin.files.dto.FileStorageUpdateDTO;
 import ru.savin.files.entity.FileStorage;
 import ru.savin.files.mapper.FileStorageMapper;
 import ru.savin.files.repository.FileStorageRepository;
+import ru.savin.files.service.FileStorageCrud;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class FileStorageCrudServiceImpl implements CrudService<FileStorageDTO, FileStorageUpdateDTO> {
+public class FileStorageCrudServiceImpl implements FileStorageCrud {
     private static final String ENTITY_NOT_FOUND = "Файл по названию %s не найден";
     private static final String NAME_NULL = "Получить информации о файле невозможно, т.к. название файла равно null";
 
@@ -35,7 +40,7 @@ public class FileStorageCrudServiceImpl implements CrudService<FileStorageDTO, F
         Objects.requireNonNull(fileStorageDTO, "Невозможно сохранить файл, так как объект null");
 
         FileStorage fileStorage = fileStorageMapper.mapToEntity(fileStorageDTO);
-        fileStorage = fileStorageRepository.save(fileStorage);
+        fileStorageRepository.save(fileStorage);
 
         return fileStorageMapper.mapToDTO(fileStorage);
     }
@@ -57,10 +62,44 @@ public class FileStorageCrudServiceImpl implements CrudService<FileStorageDTO, F
     public String delete(String name) {
         Objects.requireNonNull(name, NAME_NULL);
 
-        FileStorage fileStorage = fileStorageRepository.getFileStorageByName(name)
-                .orElseThrow(() -> new BezrukiyRuntimeException(String.format(ENTITY_NOT_FOUND, name)));
-        fileStorageRepository.delete(fileStorage);
+        List<FileStorage> fileStorages = fileStorageRepository.getFileStoragesByName(name);
+        if (fileStorages.isEmpty()) {
+            throw new BezrukiyRuntimeException(String.format(ENTITY_NOT_FOUND, name));
+        }
 
-        return String.format("Файл %s удален", name);
+        fileStorageRepository.deleteAll(fileStorages);
+
+        return "Файлы удалены";
+    }
+
+    @Override
+    public List<FileStorageInfoDTO> getAll(String name) {
+        Objects.requireNonNull(name, NAME_NULL);
+
+        List<FileStorage> fileStorages = fileStorageRepository.getFileStoragesByName(name);
+        if (fileStorages.isEmpty()) {
+            throw new BezrukiyRuntimeException("Файлы не были найдены");
+        }
+
+        return fileStorages
+                .stream()
+                .map(x-> new FileStorageInfoDTO(x.getName(), x.getFileType().getExtension(), null))
+                .toList();
+    }
+
+    @Override
+    public void saveAll(FileStorageDTO dto, int sizeCountFiles) {
+        Objects.requireNonNull(dto, "Невозможно сохранить файлы, так как не были загружены");
+
+        if (sizeCountFiles == 1) {
+            save(dto);
+        }
+
+//        List<FileStorage> fileStorages = fileStorageMapper.mapToEntities();
+    }
+
+    @Override
+    public void updateAll(FileStorageDTO dto, int sizeCountFiles) {
+
     }
 }

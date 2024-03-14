@@ -1,18 +1,15 @@
 package ru.savin.files.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.savin.bezrukiy.shared.service.CrudService;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.savin.files.dto.FileStorageDTO;
+import ru.savin.files.dto.FileStorageInfoDTO;
 import ru.savin.files.dto.FileStorageUpdateDTO;
-import ru.savin.files.entity.FileStorage;
+import ru.savin.files.service.FileStorageService;
+
+import java.util.List;
 
 /**
  * Контроллер файлов.
@@ -21,25 +18,30 @@ import ru.savin.files.entity.FileStorage;
 @RequestMapping("/file-storage")
 @RequiredArgsConstructor
 public class FileStorageController {
-    private final CrudService<FileStorageDTO, FileStorageUpdateDTO> crudService;
+    private final FileStorageService fileStorageService;
+
+    @GetMapping("/logo/{name}")
+    public FileStorageInfoDTO getLogo(@PathVariable("name") String name) {
+        return fileStorageService.getLogo(name);
+    }
 
     @GetMapping("/{name}")
-    public FileStorageDTO get(@PathVariable("name") String name) {
-        return crudService.get(name);
+    public List<FileStorageInfoDTO> get(@PathVariable("name") String name) {
+        return fileStorageService.getFiles(name);
     }
 
-    @PostMapping
-    public FileStorageDTO save(@RequestBody FileStorageDTO fileStorageDTO) {
-        return crudService.save(fileStorageDTO);
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void save(@RequestPart("newData") FileStorageDTO newData, @RequestPart("newFile") MultipartFile newFile) {
+        fileStorageService.writeFile(newData, newFile);
     }
 
-    @PutMapping
-    public FileStorageDTO update(@RequestBody FileStorageUpdateDTO updateDTO) {
-        return crudService.update(updateDTO);
+    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void update(@RequestPart("updateData") FileStorageUpdateDTO updateData, @RequestPart("updateFile") MultipartFile updateFile) {
+        fileStorageService.updateFile(updateData, updateFile);
     }
 
     @DeleteMapping("/{name}")
     public String delete(@PathVariable("name") String name) {
-        return crudService.delete(name);
+        return fileStorageService.deleteFile(name);
     }
 }

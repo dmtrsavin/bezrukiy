@@ -42,6 +42,10 @@
             <artifactId>mapstruct</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
             <groupId>ru.savin</groupId>
             <artifactId>bezrukiy-shared-entity</artifactId>
         </dependency>
