@@ -10,3 +10,13 @@ spring:
     url: jdbc:postgresql://localhost:5432/bezrukiy?currentSchema=dev
     username: dev
     password: dev
+
+#files:
+#  logo: ${bezrukiy.files.logos}
+#  image: ${bezrukiy.files.images}
+#  info: ${bezrukiy.files.infos}
+
+files:
+  logo: D:/files/
+  image: D:/files/
+  info: D:/files/

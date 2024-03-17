@@ -16,6 +16,8 @@ import ru.savin.files.mapper.FileStorageMapper;
 import ru.savin.files.repository.FileStorageRepository;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -158,15 +160,17 @@ class FileStorageCrudServiceImplTest {
         //given
         String name = "name";
         FileStorage entity = generateFileStorage();
+        List<FileStorage> fileStorages = new ArrayList<>();
+        fileStorages.add(entity);
 
         //when
-        Mockito.when(fileStorageRepository.getFileStorageByName(name))
-                .thenReturn(Optional.of(entity));
+        Mockito.when(fileStorageRepository.getFileStoragesByName(name))
+                .thenReturn(fileStorages);
 
         //then
         String result = crudService.delete(name);
-        Mockito.verify(fileStorageRepository, Mockito.times(1)).delete(entity);
-        Assertions.assertEquals(String.format("Файл %s удален", name), result);
+        Mockito.verify(fileStorageRepository, Mockito.times(1)).deleteAll(fileStorages);
+        Assertions.assertEquals(String.format("Файлы удалены", name), result);
     }
 
     private FileStorage generateFileStorage() {
@@ -180,7 +184,7 @@ class FileStorageCrudServiceImplTest {
 
     private FileStorageDTO generateFileStorageDTO() {
         return new FileStorageDTO(
-                "name", FileType.IMAGE.getType(), OffsetDateTime.now(), OffsetDateTime.now(), 11L);
+                "name", OffsetDateTime.now(), OffsetDateTime.now(), 11L, null);
     }
 
 }

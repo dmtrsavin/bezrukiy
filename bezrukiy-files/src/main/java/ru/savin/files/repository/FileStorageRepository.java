@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.savin.files.dto.FileStorageDTO;
 import ru.savin.files.entity.FileStorage;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,4 +23,6 @@ public interface FileStorageRepository extends JpaRepository<FileStorage, Long> 
      * @return {@link FileStorageDTO}
      */
     Optional<FileStorage> getFileStorageByName(@Param("fileName") String name);
+
+    List<FileStorage> getFileStoragesByName(@Param("fileName") String names);
 }
